@@ -3,8 +3,8 @@ Computational assignment for University Physics course (calculus-based)
 
 This assignment is adapted from the assignment "A Space Voyage: Part 1" from the excellent textbook Matter and Interactions, by Chabay and Sherwood. 
 
-We use a modification of the Euler method, similar to that featured in "Hidden Figures", a movie about three NASA mathematicians.
-https://www.youtube.com/watch?v=v-pbGAts_Fg
+We use a modification of the Euler method, similar to that featured in "Hidden Figures", a movie about three NASA mathematicians (cool 2-minute clip:
+https://www.youtube.com/watch?v=v-pbGAts_Fg)
 
 In this program you will model the motion of a spacecraft moving near the Earth. You will use your working program to explore the eﬀect of the spacecraft’s initial velocity on its trajectory. 
 
