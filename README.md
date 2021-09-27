@@ -17,13 +17,13 @@ Study the following VPython program carefully. Make sure you understand the whol
 
 ```
 G = 6.7e-11
-delta_t = 6*60*60 # 2 hours (in seconds)
+delta_t = 0.1*60*60 # 2 hours (in seconds)
 Earth = sphere(pos=vec(0,0,0), radius=6.4e6, color=color.cyan)
-craft = sphere(pos=vec(-10*Earth.radius, 0,0), radius=1e6, color=color.yellow, make_trail=True)
+craft = sphere(pos=vec(-20*Earth.radius, 0,0), radius=1e6, color=color.yellow, make_trail=True)
 Moon = sphere(pos=vec(4e8,0,0), radius=1.75e6, color=color.white, make_trail=True)
 
 Earth.mass = 6e24
-craft.mass = 15e3
+craft.mass = 32e3
 
 craft.velocity =  vec(0,3e3,0)
 
