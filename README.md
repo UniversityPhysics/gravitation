@@ -16,39 +16,73 @@ After completing this activity you should be able to:
 Study the following VPython program carefully. Make sure you understand the whole program, but don’t run the program yet. Reading and explaining program code is an important part of learning to create and modify computational models.
 
 ```
-G = 6.7e-11 
-mEarth = 6e24 
-mcraft = 15e3 
-delta_t = 12 * 60 * 60 #Converting time period to SI units of seconds. What were the units of time 12?
-Earth = sphere(pos=vector(0,0,0), radius=6.4e6, color=color.cyan) 
-craft = sphere(pos=vector(-10*Earth.radius, 0,0), radius=1e6, color=color.yellow, make_trail=True) 
-craft.velocity = vector(0,2e3,0) 
+G = 6.7e-11
+delta_t = 6*60*60 # 2 hours (in seconds)
+Earth = sphere(pos=vec(0,0,0), radius=6.4e6, color=color.cyan)
+craft = sphere(pos=vec(-10*Earth.radius, 0,0), radius=1e6, color=color.yellow, make_trail=True)
+Moon = sphere(pos=vec(4e8,0,0), radius=1.75e6, color=color.white, make_trail=True)
 
-while t < 10*365*24*60*60: 
-  sleep(delta_t/(12*3600)) #Every 12 hours will be displayed as 1 second
-  craft.pos = craft.pos + v_craft*deltat 
-  t = t+deltat
+Earth.mass = 6e24
+craft.mass = 15e3
+
+craft.velocity =  vec(0,3e3,0)
+
+t = 0
+
+while t < 365*24*60*60:
+    sleep(delta_t/(24*3600)) #Every 24 hours will be displayed as 1 second
+
+    #update force and acceleration
+    craft.rEarth=craft.pos-Earth.pos #r is a vector from the craft to the earth
+    craft.rMoon=craft.pos-Moon.pos #r is a vector from the craft to the earth
+    craft.Fnet = 0.0
+    craft.acceleration = craft.Fnet/craft.mass
+
+    #update velocity
+    craft.velocity = craft.velocity + (craft.Fnet/craft.mass)*delta_t
+    Moon.velocity = Moon.velocity
+    
+    #update position
+    craft.pos = craft.pos + craft.velocity*delta_t
+    Moon.pos = Moon.pos   
+    
+    #Detect collision
+    if mag(craft.rMoon) < Moon.radius:
+        break ## exit from the loop
+
+    t = t + delta_t
 ```
-Without running the program, answer the following questions: 
+
+More efficient than paste-and-see is to read the code and discuss with a partner what you think will happen, line-by-line. Compare your answers to the following questions.
 * What is the physical system being modeled? 
-* In the real world, how should this system behave? 
+* In the real world, how *should* this system behave? 
 * On the left side of your whiteboard or paper, draw a sketch showing how you think the objects should move in the real world. 
 * Will the program as it is now written accurately model the real system? 
 * On the right side of the whiteboard or paper, draw a sketch of how the objects created in the program will move on the screen, based on your interpretation of the code
 
-## Modify and extend the model
+## Complete the model of motion of the craft subject to earth's gravity
 Run the program. 
-* How did your prediction compare to what you saw? Did something happen that you didn’t expect to happen? 
 * How should the program be changed so that it is a physically reasonable model of the system? 
 * Modify the program. Run it and compare its behavior to the behavior you expect from the real system.
 
-Check your work before continuing
+In Python, it's simple to calculate the magnitude of the force of gravity using the quantities already defined. It's also simple to calculate the direction of the force of gravity using the function `norm(r)`, which calculates a unit vector in the direction of any vector `r` in the argument.
 
-Everything above was basically copied from Chabay and Sherwood. Below I write something different.
+Checkpoint: your craft should follow a path affected by gravity.
 
-## Further extensions
+## This code numerically integrates velocity
+In the limit that the time step size goes to zero, the result of this code should converge to a well-defined limit. In practice making the step size too small actually leads to the accumulation of numerical error, in addition to making the computation take too long. The thing to do is to decrease the step size until the result no longer improves, then say "that's good enough". Decrease the step size until the orbit seems to be correct.
 
-Answer the following questions.
-1. Adjust the time step until decreasing it further does not change the observable results. When the code gives the same output to the desired precision, we say that it is "converged". What time step is necessary to obtain convergence?
-2. Calculate the velocity that should lead to a circular orbit (in python, not on your calculator, print your output). Test that you do get a circular orbit.
-3. Experiment until you find the minimum velocity that leads to an orbit that never comes back. 
+*You and your partner need to have a step size that is at least slightly different* I don't want to see identical work for the moonshot step.
+
+## Add the gravitational attraction by the moon
+The net force on the craft should be the vector sum of the interaction with the earth and also the interaction with the moon.
+
+## Moonshot I
+
+Adjust the initial velocity of the craft until it lands on the moon! Because you have a different delta_t than your partner, you will have a different initial velocity.
+
+## Further extensions (optional)
+
+Calculate the velocity that should lead to a circular orbit (in python, not on your calculator, print your output). Test that you do get a circular orbit.
+
+Experiment until you find the minimum velocity that leads to an orbit that never comes back. 
