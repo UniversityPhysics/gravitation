@@ -35,7 +35,7 @@ while t < 365*24*60*60:
     #update force and acceleration
     craft.rEarth=craft.pos-Earth.pos #r is a vector from the craft to the earth
     craft.rMoon=craft.pos-Moon.pos #r is a vector from the craft to the earth
-    craft.Fnet = 0.0
+    craft.Fnet = vec(0,0,0)
     craft.acceleration = craft.Fnet/craft.mass
 
     #update velocity
