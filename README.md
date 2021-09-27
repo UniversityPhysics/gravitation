@@ -81,8 +81,40 @@ The net force on the craft should be the vector sum of the interaction with the 
 
 Adjust the initial velocity of the craft until it lands on the moon! Because you have a different delta_t than your partner, you will have a different initial velocity.
 
+## Add arrows to represent force and velocity
+
+The force vector is not a displaccement vector, and we can't just draw an arrow with length equal to the force. What we can do is to draw an arrow with an `.axis` property that is equal to the force vector multiplied by a scale factor so that force vectors are not too large and not too small to see. The scale factor is like a "conversion" where you divide by a typical force magnitude then multiply by a typical distance magnitude to make the force vectors big enough to see. You can choose a scale factor according to your personal preference, but do it before your time loop and don't update the scale (so all vectors will be on the same scale).
+
+Add arrows showing the velocity and force before the time loop
+
+````
+#Define arrows with scale factors to illustrate momentum and force
+typicalDistance = 1.0*mag(Moon.pos-Earth.pos)
+typicalVelocity = mag(craft.velocity)
+print("first guess for what scale factor to multiply velocity: ",typicalDistance/typicalVelocity)
+scaleVelocity = 
+
+craft.rEarth=craft.pos-Earth.pos
+typicalForce=G*Earth.mass*craft.mass/mag(craft.rEarth)**2
+print("first guess for what scale factor to multiply force: ",typicalDistance/typicalForce)
+fArrow = arrow(pos = craft.pos, color=color.red)
+vArrow = arrow(pos = craft.pos, color=color.white) 
+````
+At the end of your time loop (just before `t=t+delta_t`), update the position and axis properties of these arrows like this
+
+````
+    #update vector arrows
+    vArrow.pos = craft.pos
+    vArrow.axis = craft.velocity*scaleVelocity
+    fArrow.pos = craft.pos
+    fArrow.axis = craft.Fnet*scaleForce
+````
+
 ## Further extensions (optional)
 
 Calculate the velocity that should lead to a circular orbit (in python, not on your calculator, print your output). Test that you do get a circular orbit.
 
 Experiment until you find the minimum velocity that leads to an orbit that never comes back. 
+
+Yes, you could also let the Moon orbit the earth, and we'll do that next time.
+
