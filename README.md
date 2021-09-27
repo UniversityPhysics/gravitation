@@ -3,6 +3,9 @@ Computational assignment for University Physics course (calculus-based)
 
 This assignment is adapted from the assignment "A Space Voyage: Part 1" from the excellent textbook Matter and Interactions, by Chabay and Sherwood. 
 
+We use a modification of the Euler method, similar to that featured in "Hidden Figures", a movie about three NASA mathematicians.
+https://www.youtube.com/watch?v=v-pbGAts_Fg
+
 In this program you will model the motion of a spacecraft moving near the Earth. You will use your working program to explore the eﬀect of the spacecraft’s initial velocity on its trajectory. 
 
 After completing this activity you should be able to:
@@ -17,13 +20,14 @@ Study the following VPython program carefully. Make sure you understand the whol
 
 ```
 G = 6.7e-11
-delta_t = 0.1*60*60 # 2 hours (in seconds)
+delta_t = 10*60*60      # 10 hours (in seconds)
 Earth = sphere(pos=vec(0,0,0), radius=6.4e6, color=color.cyan)
 craft = sphere(pos=vec(-20*Earth.radius, 0,0), radius=1e6, color=color.yellow, make_trail=True)
 Moon = sphere(pos=vec(4e8,0,0), radius=1.75e6, color=color.white, make_trail=True)
 
 Earth.mass = 6e24
 craft.mass = 32e3
+Moon.mass= 7.35e22
 
 craft.velocity =  vec(0,3e3,0)
 
