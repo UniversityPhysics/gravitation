@@ -92,11 +92,12 @@ Add arrows showing the velocity and force before the time loop
 typicalDistance = 1.0*mag(Moon.pos-Earth.pos)
 typicalVelocity = mag(craft.velocity)
 print("first guess for what scale factor to multiply velocity: ",typicalDistance/typicalVelocity)
-scaleVelocity = 
+scaleVelocity = 1.0     #1.0 is a bad guess for how to scale velocity arrows
 
 craft.rEarth=craft.pos-Earth.pos
 typicalForce=G*Earth.mass*craft.mass/mag(craft.rEarth)**2
 print("first guess for what scale factor to multiply force: ",typicalDistance/typicalForce)
+scaleForce=1.0  #1.0 is a bad guess for how to scale force arrows
 fArrow = arrow(pos = craft.pos, color=color.red)
 vArrow = arrow(pos = craft.pos, color=color.white) 
 ````
