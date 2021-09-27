@@ -1,4 +1,4 @@
-# gravitation
+# Moonshot I
 Computational assignment for University Physics course (calculus-based)
 
 This assignment is adapted from the assignment "A Space Voyage: Part 1" from the excellent textbook Matter and Interactions, by Chabay and Sherwood. 
