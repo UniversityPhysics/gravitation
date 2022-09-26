@@ -20,7 +20,7 @@ Study the following VPython program carefully. Make sure you understand the whol
 
 ```
 G = 6.7e-11
-delta_t = 10*60*60      # 10 hours (in seconds)
+
 Earth = sphere(pos=vec(0,0,0), radius=6.4e6, color=color.cyan)
 craft = sphere(pos=vec(-20*Earth.radius, 0,0), radius=1e6, color=color.yellow, make_trail=True)
 Moon = sphere(pos=vec(4e8,0,0), radius=1.75e6, color=color.white, make_trail=True)
@@ -30,17 +30,19 @@ craft.mass = 32e3
 Moon.mass= 7.35e22
 
 craft.velocity =  vec(0,3e3,0)
+Moon.velocity = vec(0,-9e2,0)
 
+delta_t = 10*60*60      # 10 hours (in seconds)
 t = 0
-
 while t < 365*24*60*60:
     sleep(delta_t/(24*3600)) #Every 24 hours will be displayed as 1 second
 
-    #update force and acceleration
-    craft.rEarth=craft.pos-Earth.pos #r is a vector from the craft to the earth
-    craft.rMoon=craft.pos-Moon.pos #r is a vector from the craft to the earth
-    craft.Fnet = vec(0,0,0)
-    craft.acceleration = craft.Fnet/craft.mass
+    craft.rEarth = ? #rEarth is a vector from the craft to the earth
+    craft.rMoon = ? #rMoon is a vector from the craft to the earth
+
+    #update net force on craft
+
+    craft.Fnet = ?
 
     #update velocity
     craft.velocity = craft.velocity + (craft.Fnet/craft.mass)*delta_t
